@@ -3,13 +3,13 @@ const router = express.Router()
 
 const User = require('../models/User');
 
-router.get('/', (req, res) => {
+router.get('/api/users', (req, res) => {
   User.find()
     .then(users => res.json(users))
     .catch(err => console.log(err))
 });
 
-router.post('/', (req, res) => {
+router.post('/api/users', (req, res) => {
   const { name, email } = req.body;
   const newUser = new User({
     name: name, email: email
@@ -24,4 +24,4 @@ router.post('/', (req, res) => {
     }))
 });
 
-module.exports = router 
+module.exports = router
