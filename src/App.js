@@ -3,44 +3,58 @@ import axios from 'axios';
 import './App.css';
 
 function App() {
-  const [users, setUsers] = useState(null);
+  const [users, setUsers] = useState([]);
 
-	const [username, setUsername] = useState("");
+	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 
 	useEffect(() => {
 		axios
-			.get("/")
-			.then((users) => setUsers(users))
-			.catch(() => console.log('ne rabotaet down'));
+			.get("/api/users")
+			.then((users) => {
+				setUsers(users.data)
+			})
+			.catch((err) => console.log(err));
 	}, []);
 
-	function submitForm() {
-		if (username === "") {
-			alert("Please fill the username field");
-			return;
-		}
-		if (email === "") {
-			alert("Please fill the email field");
-			return;
-		}
-		axios
-			.post("/api/users", {
-				username: username,
-				email: email,
-			})
-			.then(function () {
-				alert("Account created successfully");
-				window.location.reload();
-			})
-			.catch(function () {
-				alert("Could not creat account. Please try again");
-			});
+	function submitForm(event) {
+		event.preventDefault();
+
+		// if (name === "") {
+		// 	alert("Please fill the username field");
+		// 	return;
+		// }
+		// if (email === "") {
+		// 	alert("Please fill the email field");
+		// 	return;
+		// }
+
+
+	var data = {
+		"name": name,
+		"email": email
+	};
+
+	var config = {
+		method: 'post',
+		url: 'localhost:5000/api/users',
+		headers: { },
+		data : data
+	};
+
+	axios(config)
+		.then(function (response) {
+			console.log(JSON.stringify(response.data));
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
 	}
 
 	return (
 		<>
 			<h1>My Project</h1>
+
 			{users === null ? (
 				<p>Loading...</p>
 			) : users.length === 0 ? (
@@ -49,7 +63,7 @@ function App() {
 				<>
 					<h2>Available Users</h2>
 					<ol>
-					    {users.map((user, index) => (
+						{users.map((user, index) => (
 							<li key={index}>
 								Name: {user.name} - Email: {user.email}
 							</li>
@@ -58,9 +72,9 @@ function App() {
 				</>
 			)}
 
-			<form onSubmit={submitForm}>
+			<form onSubmit={submitForm} >
 				<input
-					onChange={(e) => setUsername(e.target.value)}
+					onChange={(e) => setName(e.target.value)}
 					type="text"
 					placeholder="Enter your username"
 				/>
@@ -69,10 +83,10 @@ function App() {
 					type="text"
 					placeholder="Enter your email address"
 				/>
-				<input type="submit" />
+				<button type="submit" />
 			</form>
 		</>
 	);
-}
+};
 
 export default App;
