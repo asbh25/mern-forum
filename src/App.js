@@ -20,35 +20,35 @@ function App() {
 	function submitForm(event) {
 		event.preventDefault();
 
-		// if (name === "") {
-		// 	alert("Please fill the username field");
-		// 	return;
-		// }
-		// if (email === "") {
-		// 	alert("Please fill the email field");
-		// 	return;
-		// }
+		var data = {
+			"name": name,
+			"email": email
+		};
 
+		var config = {
+			method: 'post',
+			url: '/api/users',
+			headers: { },
+			data : data
+		};
 
-	var data = {
-		"name": name,
-		"email": email
-	};
+		axios(config)
+			.then(function (response) {
+				console.log(JSON.stringify(response.data));
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
 
-	var config = {
-		method: 'post',
-		url: 'localhost:5000/api/users',
-		headers: { },
-		data : data
-	};
+		setName("");
+		setEmail("");
 
-	axios(config)
-		.then(function (response) {
-			console.log(JSON.stringify(response.data));
-		})
-		.catch(function (error) {
-			console.log(error);
-		});
+		axios
+			.get("/api/users")
+			.then((users) => {
+				setUsers(users.data)
+			})
+			.catch((err) => console.log(err));
 	}
 
 	return (
@@ -77,13 +77,17 @@ function App() {
 					onChange={(e) => setName(e.target.value)}
 					type="text"
 					placeholder="Enter your username"
+					value={name}
 				/>
 				<input
 					onChange={(e) => setEmail(e.target.value)}
 					type="text"
 					placeholder="Enter your email address"
+					value={email}
 				/>
-				<button type="submit" />
+				<button type="submit">
+					SEND
+				</button>
 			</form>
 		</>
 	);
