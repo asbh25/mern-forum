@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChatMessage } from '../ChatMessage';
 import axios from 'axios';
+import faker from 'faker';
 
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
@@ -37,13 +38,16 @@ export const Forum = () => {
 			.catch((err) => console.log(err));
 	}, []);
 
-	const sendMessage = (event) => {
-		event.preventDefault();
+	const sendMessage = async (event) => {
+    event.preventDefault();
+    
+    const photoUrl = await faker.image.avatar();
 
 		var data = {
       "name": name,
 			"comment": comment,
-			"createdAt": +Date.now()
+      "createdAt": +Date.now(),
+      "photoUrl": photoUrl
 		};
 
 		var config = {
@@ -90,7 +94,6 @@ export const Forum = () => {
           <TextField
             required
             id="standard-required"
-            // defaultValue="Say something nice"
             value={name}
             onChange={({ target }) => setName(target.value.trimLeft())}
             placeholder="Name"
@@ -99,7 +102,6 @@ export const Forum = () => {
           <TextField
             required
             id="standard-required"
-            // defaultValue="Say something nice"
             value={comment}
             onChange={({ target }) => setComment(target.value.trimLeft())}
             placeholder="Say something nice"

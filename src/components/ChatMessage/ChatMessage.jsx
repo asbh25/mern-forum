@@ -22,7 +22,7 @@ const getDateFrom = (milliseconds) => {
 };
 
 export const ChatMessage = ({ message }) => {
-  const { name, comment, createdAt } = message;
+  const { name, comment, createdAt, photoUrl } = message;
   const [date] = useState(getDateFrom(createdAt));
 
   const classes = useStyles();
@@ -33,7 +33,10 @@ export const ChatMessage = ({ message }) => {
         avatar={
           <Avatar
             aria-label="avatar"
-            src={"https://api.adorable.io/avatars/23/abott@adorable.png"}
+            src={
+              photoUrl ||
+              "https://api.adorable.io/avatars/23/abott@adorable.png"
+            }
           />
         }
         title={name.toUpperCase()}

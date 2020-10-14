@@ -13,7 +13,11 @@ const commentSchema = new Schema({
     createdAt: {
         type: Number,
         required: true
+    },
+    photoUrl: {
+        type: String,
+        required: false
     }
-});
+})
 
 module.exports = mongoose.model("Comment", commentSchema, "comments");

@@ -17,32 +17,32 @@ app.get('/api', (req, res) => {
 });
 
 app.get('/api/comments', (req, res) => {
-    Comment.find()
-      .then(comm => {
-          res.json(comm); console.log('get request works fine');
-        })
-      .catch(err => console.log(err))
+  Comment.find()
+    .then(comm => {
+        res.json(comm);
+    })
+    .catch(err => console.log(err))
 });
-  
+
 app.post('/api/comments', async (req, res) => {
-    const { name, comment, createdAt } = req.body;
+  const { name, comment, createdAt, photoUrl } = req.body;
 
-    console.log(name, comment);
+  try {
+    let comm = await Comment.create({
+      name: name,
+      comment: comment,
+      createdAt: createdAt,
+      photoUrl: photoUrl
+    });
 
-    try{
-      let comm = await Comment.create({
-        name: name,
-        comment: comment,
-        createdAt: createdAt
-      });
-      console.log(comm);
-      res.status(201).json(comm);
-    } catch(err){
-        console.log(err);
-        res.status(400).json({
-            "message": "Error creating account"
-        })
-    }
+    console.log(comm);
+    res.status(201).json(comm);
+  } catch(err){
+      console.log(err);
+      res.status(400).json({
+        "message": "Error creating account"
+      })
+}
 });
 
 app.use(express.static(path.join(__dirname, '../build')))
