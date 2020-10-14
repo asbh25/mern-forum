@@ -31,7 +31,7 @@ export const Forum = () => {
 
   useEffect(() => {
 		axios
-			.get("/api/comments")
+			.get("https://sleepy-savannah-02780.herokuapp.com/api/comments")
 			.then((msgs) => {
 				setMessages(msgs.data)
 			})
@@ -52,7 +52,7 @@ export const Forum = () => {
 
 		var config = {
 			method: 'post',
-			url: '/api/comments',
+			url: 'https://sleepy-savannah-02780.herokuapp.com/api/comments',
 			headers: { },
 			data : data
 		};
@@ -66,7 +66,7 @@ export const Forum = () => {
 			});
 
 		axios
-			.get("/api/comments")
+			.get("https://sleepy-savannah-02780.herokuapp.com/api/comments")
 			.then((msgs) => {
 				setMessages(msgs.data)
 			})
