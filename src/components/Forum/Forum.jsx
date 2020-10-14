@@ -57,13 +57,11 @@ export const Forum = () => {
 			data : data
 		};
 
-		axios(config)
-			.then(function (response) {
+		await axios(config)
+			.then(response => {
 				console.log(JSON.stringify(response.data));
 			})
-			.catch(function (error) {
-				console.log(error);
-			});
+			.catch(error => console.log(error));
 
     axios
 			.get("https://sleepy-savannah-02780.herokuapp.com/api/comments")
@@ -71,7 +69,7 @@ export const Forum = () => {
         setMessages(msgs.data);
         console.log("we're here");
 			})
-			.catch((err) => console.log(err));
+			.catch(error => console.log(error));
 
     setName('');
     setComment('');
