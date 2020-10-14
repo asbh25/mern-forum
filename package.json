@@ -23,7 +23,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start": "nodemon backend/server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install npm && run build"
+    "build:prod": "ng build --prod",
+    "heroku-postbuild": "npm run build:prod"
   },
   "eslintConfig": {
     "extends": "react-app"
