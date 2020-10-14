@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router()
 
-const User = require('../models/User');
+const User = require('../models/comment');
 
 router.get('/api/users', (req, res) => {
   User.find()

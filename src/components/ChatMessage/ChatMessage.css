@@ -1,0 +1,47 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.MuiCard-root {
+  cursor: pointer;
+  z-index: 4;
+  width: 90%;
+  margin-bottom: 10px;
+}
+
+@media (min-width: 1000px) {
+  .MuiCard-root:hover {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+    transition: transform 0.5s;
+  }
+
+  .MuiCard-root {
+    z-index: 1;
+    width: 100%;
+  }
+
+  .MuiCard-root:hover {
+    position: absolute;
+    z-index: 4;
+  }
+
+  .wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  .MuiTypography-colorTextPrimary {
+    height: 20px;
+    overflow: hidden;
+  }
+
+  .MuiCard-root:hover .MuiTypography-colorTextPrimary {
+    height: auto;
+  }
+}

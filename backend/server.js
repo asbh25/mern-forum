@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 require('./database');
 
-const User = require('./models/User');
+const Comment = require('./models/Comment');
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -16,39 +16,33 @@ app.get('/api', (req, res) => {
     res.send('req');
 });
 
-app.get('/api/users', (req, res) => {
-    User.find()
-      .then(users => res.json(users))
+app.get('/api/comments', (req, res) => {
+    Comment.find()
+      .then(comm => {
+          res.json(comm); console.log('get request works fine');
+        })
       .catch(err => console.log(err))
 });
   
-app.post('/api/users', async (req, res) => {
-    const { name, email } = req.body;
+app.post('/api/comments', async (req, res) => {
+    const { name, comment, createdAt } = req.body;
+
+    console.log(name, comment);
 
     try{
-      let user = await User.create({
+      let comm = await Comment.create({
         name: name,
-        email: email
+        comment: comment,
+        createdAt: createdAt
       });
-      console.log(user);
-      res.status(201).json(user);
+      console.log(comm);
+      res.status(201).json(comm);
     } catch(err){
         console.log(err);
         res.status(400).json({
-            "error": err,
             "message": "Error creating account"
         })
     }
-    
-    // console.log(newUser);
-    // newUser.save()
-    //     .then(() => res.json({
-    //         message: "Created account successfully"
-    //     }))
-    //     .catch(err => res.status(400).json({
-    //         "error": err,
-    //         "message": "Error creating account"
-    //     }))
 });
 
 app.use(express.static(path.join(__dirname, '../build')))
@@ -59,11 +53,3 @@ app.get('*', (req, res) => {
 app.listen(PORT, function() {
     console.log("Server is running on Port: " + PORT);
 });
-
-// const users = require('./api/users');
-// app.use('./api/users', users);
-
-
-
-
-// mongodb+srv://ggandr:<password>@forumcluster.h663z.mongodb.net/<dbname>?retryWrites=true&w=majority
