@@ -11,6 +11,8 @@ const Comment = require('./models/Comment');
 app.use(bodyParser.json());
 app.use(cors());
 
+app.get('/', (req, res) => { res.send('Hello from Express!'); console.log(process.env.PORT) });
+
 app.get('/api', (req, res) => {
     console.log(res);
     res.send('req');

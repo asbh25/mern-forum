@@ -65,15 +65,16 @@ export const Forum = () => {
 				console.log(error);
 			});
 
-		axios
+    axios
 			.get("https://sleepy-savannah-02780.herokuapp.com/api/comments")
 			.then((msgs) => {
-				setMessages(msgs.data)
+        setMessages(msgs.data);
+        console.log("we're here");
 			})
-      .catch((err) => console.log(err));
-      
-      setName('');
-      setComment('');
+			.catch((err) => console.log(err));
+
+    setName('');
+    setComment('');
 	}
 
   return (
