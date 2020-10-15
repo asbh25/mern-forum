@@ -30,46 +30,46 @@ export const Forum = () => {
   const [comment, setComment] = useState("");
 
   useEffect(() => {
-		axios
-			.get("https://sleepy-savannah-02780.herokuapp.com/api/comments")
-			.then((msgs) => {
-				setMessages(msgs.data)
-			})
-			.catch((err) => console.log(err));
-	}, []);
+    axios
+      .get("https://sleepy-savannah-02780.herokuapp.com/api/comments")
+      .then((msgs) => {
+        setMessages(msgs.data)
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
-	const sendMessage = async (event) => {
+  const sendMessage = async (event) => {
     event.preventDefault();
     
     const photoUrl = await faker.image.avatar();
 
-		var data = {
+    var data = {
       "name": name,
-			"comment": comment,
+      "comment": comment,
       "createdAt": +Date.now(),
       "photoUrl": photoUrl
-		};
+    };
 
-		var config = {
-			method: 'post',
-			url: 'https://sleepy-savannah-02780.herokuapp.com/api/comments',
-			headers: { },
-			data : data
-		};
+    var config = {
+      method: 'post',
+      url: 'https://sleepy-savannah-02780.herokuapp.com/api/comments',
+      headers: { },
+      data : data
+    };
 
-		await axios(config)
-			.then(response => {
-				console.log(JSON.stringify(response.data));
-			})
-			.catch(error => console.log(error));
+    await axios(config)
+      .then(response => {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(error => console.log(error));
 
     axios
-			.get("https://sleepy-savannah-02780.herokuapp.com/api/comments")
-			.then((msgs) => {
+      .get("https://sleepy-savannah-02780.herokuapp.com/api/comments")
+      .then((msgs) => {
         setMessages(msgs.data);
         console.log("we're here");
-			})
-			.catch(error => console.log(error));
+      })
+      .catch(error => console.log(error));
 
     setName('');
     setComment('');
